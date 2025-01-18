@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#-ea == enable assertions
+java -d64 -ea -cp classes Generate $@

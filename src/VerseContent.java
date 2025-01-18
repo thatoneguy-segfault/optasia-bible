@@ -1,0 +1,2 @@
+interface VerseContent extends Visitable {
+}

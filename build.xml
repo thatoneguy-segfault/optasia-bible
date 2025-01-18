@@ -1,0 +1,17 @@
+<project name="generate" default="compile" basedir=".">
+	<target name="init">
+		<property name="sourceDir" value="src"/>
+		<property name="outputDir" value="classes"/>
+	</target>
+	<target name="clean" depends="init">
+		<delete dir="${outputDir}"/>
+	</target>
+	<target name="prepare" depends="clean">
+		<mkdir dir="${outputDir}"/>
+	</target>
+	<target name="compile" depends="prepare">
+		<javac debug="true" includeantruntime="false" srcdir="${sourceDir}" destdir="${outputDir}">
+			<compilerarg line="-Xlint:unchecked" />
+		</javac>
+	</target>
+</project>
