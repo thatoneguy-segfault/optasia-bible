@@ -94,7 +94,7 @@ import java.io.IOException;
 public class Generate {
 
 	private static Path defaultOutputDirectory = new Path("output");
-	private static Path defaultInputDirectory = new Path("optasia-bible-input");
+	private static Path defaultInputDirectory = new Path("../optasia-bible-input");
 
 
 	/**
