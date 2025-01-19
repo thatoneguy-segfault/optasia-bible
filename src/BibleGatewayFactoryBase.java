@@ -187,7 +187,7 @@ abstract class BibleGatewayFactoryBase extends BibleFactory {
 		// <span id="en-NIV-2421" class="sup">1</span>
 		// <sup id="en-CEV-213" class="versenum" value='1'>1</sup>
 		// <sup class="versenum" id="en-NIV-28371">23</sup>
-		// <span id="en-CEB-35508" class="text 1Esd-1-3"><sup class="versenum">3 </sup>
+		// <span id="en-CEB-35508" class="text 1Esd-1-3"><sup class="versenum">3 </sup>
 		//def verseSplit = /<(?:span|sup) +(?:class="versenum" *)?id="[a-z]{2}-[A-Z]{3,4}-[0-9]+" +class="(?:sup|versenum)"[^>]*>/
 		
 		//String verseSplit = "(?:<(?:span|sup) +(?:class=\"versenum\" +|id=\"[a-z]{2}-[A-Z]{3,4}-[0-9]+\" +|class=\"sup\" +)+[^>]*>|<versenum )";
