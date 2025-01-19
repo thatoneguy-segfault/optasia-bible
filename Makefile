@@ -31,7 +31,7 @@ all_msg:
 
 .PHONY: generate
 generate: compile
-	./Run
+	./Run -p
 
 .PHONY: all
 all: all_msg generate zip
