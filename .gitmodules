@@ -1,3 +1,4 @@
 [submodule "optasia-bible-input"]
 	path = optasia-bible-input
 	url = git@github.com:thatoneguy-segfault/optasia-bible-input.git
+        branch = main
