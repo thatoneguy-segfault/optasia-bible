@@ -82,6 +82,7 @@ public class Library implements ConcurrentLibraryIface {
 	public void generateNormal(List<String> translations, List<String> crosslink, Path outputDirectory) throws IOException {
 		System.out.println("Generating non-production");
 		this.generateIndexes(crosslink);
+                this.index.verify();
 		for (String t: translations) {
 			TranslationGenerator g = TranslationGenerator.CreateTranslationReadWriteGenerator(this, t, outputDirectory, false);
 			threadPool.execute(g);

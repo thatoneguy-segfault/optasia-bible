@@ -105,7 +105,9 @@ class BHBibleFactory extends BibleFactory {
 
 
 				if (null != indexOnly) {
-					indexOnly.addSupport(c);
+                                        if (!indexOnly.supports(c)) {
+                                            indexOnly.addSupport(c);
+                                        }
 				} else {
 					if (null != heading) {
 						c.data.add(new Heading(c, 1, cleanVerse(c, heading)));

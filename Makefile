@@ -20,8 +20,8 @@ zip:
 	mkdir -p zip
 	#find ./src/ -maxdepth 1 -type f | xargs zip zip/scripts.zip
 	#cd output; zip -r ../zip/bible.zip bible/
-	cd output/production/collections; for collection in `ls -d * | sed 's/\///g'`; do zip -r ../../../zip/$$collection.zip $$collection; done
-	cd output/production/individual; for bible in `ls -d * | sed 's/\///g'`; do zip -r ../../../zip/$$bible.zip $$bible; done
+	cd output/production/collections && for collection in `ls -d * | sed 's/\///g'`; do zip -r ../../../zip/$$collection.zip $$collection; done
+	cd output/production/individual && for bible in `ls -d * | sed 's/\///g'`; do zip -r ../../../zip/$$bible.zip $$bible; done
 
 
 .PHONY: all_msg

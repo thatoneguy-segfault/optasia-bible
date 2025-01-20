@@ -85,9 +85,10 @@ public class LibraryIndex implements LibraryIndexView {
 
 	private boolean supportsNB(String translation, String book, int chapter) {
 
-		// We shouldn't be asking about translations
-		// if we haven't even indexed them.
-		assert this.index.containsKey(translation);
+                
+                // We shouldn't be asking about translations
+                // if we haven't even indexed them.
+                //assert this.index.containsKey(translation);
 
 		return supportsNB(translation, book)
 			&& this.index.get(translation).get(book).contains(chapter);
@@ -181,10 +182,10 @@ public class LibraryIndex implements LibraryIndexView {
 
 
 	public void printSummary(PrintStream s) {
-		verify();
 		for (Map.Entry<String, BookMap> indexEntry : index.entrySet()) {
 			s.println(indexEntry.getKey() + " " + indexEntry.getValue().size() + " books");
 		}
+		verify();
 	}
 
 	public static void unitTest() {

@@ -81,8 +81,8 @@ class BHSTBibleFactory extends BibleFactory {
 		Book b = t.getBook(bookname);
 		Chapter c = b.getChapter(chapterNumber);
 
-		if (indexOnly != null) {
-			return;
+		if ((indexOnly != null) && !indexOnly.supports(c)) {
+			indexOnly.addSupport(c);
 		}
 
 		while (true) {
