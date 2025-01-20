@@ -30,7 +30,7 @@ class BibleStudyToolsFactory2 extends BibleFactory {
 		this.library = library;
 		if (translationMap.containsKey(translation)) {
 			Translation t = this.readDirectory(
-					new Path(inputDirectory, "biblestudytools", translation.toLowerCase()),
+					new Path(inputDirectory, "biblestudytools", translation),
 					translationMap.get(translation), translation, indexOnly);
 			t.verify();
 			return t;
@@ -44,6 +44,10 @@ class BibleStudyToolsFactory2 extends BibleFactory {
 		Translation t = new Translation(this.library);
 		t.setFullname(fullname);
 		t.setShortname(shortname);
+                File[] files = dir.toFile().listFiles();
+                if (null == files) {
+                    throw new IOException("Directory does not exist or is not a directory: " + dir.toFile());
+                }
 		for (File file : dir.toFile().listFiles()) {
 			Matcher m = Pattern.compile("^([-A-Za-z0-9]+)_([0-9]+).html$").matcher(file.getName());
 			if (m.matches()) {
