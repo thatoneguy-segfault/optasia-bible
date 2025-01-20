@@ -81,37 +81,39 @@ class BHSTBibleFactory extends BibleFactory {
 		Book b = t.getBook(bookname);
 		Chapter c = b.getChapter(chapterNumber);
 
-		if ((indexOnly != null) && !indexOnly.supports(c)) {
-			indexOnly.addSupport(c);
-		}
+		if ((indexOnly != null)) {
+                        if (!indexOnly.supports(c)) {
+                                indexOnly.addSupport(c);
+                        }
+		} else {
+                        while (true) {
+                                // Verses are formatted as: <span class="reftext"><a href="http://biblos.com/genesis/1-27.htm"><b>27</b></a></span>&nbsp;vai·yiv·ra e·lo·him et-ha·'a·dam be·tzal·mov be·tze·lem e·lo·him ba·ra o·tov za·char u·ne·ke·vah ba·ra o·tam.
 
-		while (true) {
-			// Verses are formatted as: <span class="reftext"><a href="http://biblos.com/genesis/1-27.htm"><b>27</b></a></span>&nbsp;vai·yiv·ra e·lo·him et-ha·'a·dam be·tzal·mov be·tze·lem e·lo·him ba·ra o·tov za·char u·ne·ke·vah ba·ra o·tam.
+                                m = Pattern.compile(".*<span class=\"reftext\"><a href=\"http:\\/\\/biblos.com\\/[^\\/]+\\/\\d+-\\d+.htm\"><b>(\\d+)<\\/b><\\/a><\\/span>\\&nbsp;([^<]+)(<p>)?.*").matcher(s);
+                                if (m.matches()) {
+                                        int verseNum = Integer.parseInt(m.group(1));
+                                        String verseText = m.group(2);
 
-			m = Pattern.compile(".*<span class=\"reftext\"><a href=\"http:\\/\\/biblos.com\\/[^\\/]+\\/\\d+-\\d+.htm\"><b>(\\d+)<\\/b><\\/a><\\/span>\\&nbsp;([^<]+)(<p>)?.*").matcher(s);
-			if (m.matches()) {
-				int verseNum = Integer.parseInt(m.group(1));
-				String verseText = m.group(2);
+                                        if (m.group(3) != null && m.group(3).equals("<p>")) {
+                                                newline = "</br></br>";
+                                        } else {
+                                                newline = "</br>";
+                                        }
 
-				if (m.group(3) != null && m.group(3).equals("<p>")) {
-					newline = "</br></br>";
-				} else {
-					newline = "</br>";
-				}
+                                        c.addVerse(verseNum, cleanVerse(c, verseText) + newline);
+                                }
 
-				c.addVerse(verseNum, cleanVerse(c, verseText) + newline);
-			}
+                                s = r.readLine();
+                                if (s == null) {
+                                        break;
+                                }
+                        }
 
-			s = r.readLine();
-			if (s == null) {
-				break;
-			}
-		}
-
+                }
 	}
 
 	private String cleanVerse(Chapter c, String text) {
-		// The BHST has an odd character between each hewbrew character
+		// The BHST has an odd character between each hebrew character
 		text = text.replaceAll("\\xb7", "");
 		return cleanHtmlCodes(text);
 	}

@@ -119,7 +119,9 @@ class GreekBibleFactory extends BibleFactory {
 					Chapter c = b.getChapter(chapterNumber);
 
 					if (null != indexOnly) {
-						indexOnly.addSupport(c);
+                                                if (!indexOnly.supports(c)) {
+                                                    indexOnly.addSupport(c);
+                                                }
 					} else {
 						String bookChapter = bookname + chapterNumber;
 
