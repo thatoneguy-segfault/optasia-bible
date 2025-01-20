@@ -183,7 +183,12 @@ public class LibraryIndex implements LibraryIndexView {
 
 	public void printSummary(PrintStream s) {
 		for (Map.Entry<String, BookMap> indexEntry : index.entrySet()) {
-			s.println(indexEntry.getKey() + " " + indexEntry.getValue().size() + " books");
+                        int nChapters = 0;
+                        for (Map.Entry<String, ChapterList> chapterEntry: indexEntry.getValue().entrySet()) {
+                            nChapters += chapterEntry.getValue().size();
+                        }
+
+			s.println(indexEntry.getKey() + " " + indexEntry.getValue().size() + " books, " + nChapters + " chapters");
 		}
 		verify();
 	}

@@ -109,6 +109,7 @@ public class Generate {
 		cli.add("h", "help", "Show usage information");
 		cli.add("q", "query", "List the supported translations and collections.");
 		cli.add("t", "test", "Call the test function. -- for developer use only.");
+		cli.add("I", "testindex", "create indexes and print summaries.  Ignores --crosslink");
 		cli.addStringArgAny("x", "crosslink",
 				"<supported|generated|collection_name|none> what to crosslink the generated translations to",
 				opt_crosslink);
@@ -171,6 +172,21 @@ public class Generate {
 			}
 		}
 
+
+                if (cli.isSet("I")) {
+                        library.querry(cli.getOtherArgs());
+
+			library.generateIndexes(translations);
+			System.out.println("Index: ");
+			library.printIndexSummary(System.out);
+                        for (String t : translations) {
+                            if (!library.getNonProductionIndex().supports(t)) {
+                                System.out.println("No index for " + t);
+                            }
+                        }
+			System.exit(0);
+                }
+
 		// Which translations to crosslink to?
 		ArrayList<String> crosslink = null;
 		if (opt_crosslink.equals("supported")) {
@@ -189,13 +205,13 @@ public class Generate {
 
 		if (cli.isSet("q")) {
 			library.querry(cli.getOtherArgs());
-			System.out.println("Crosslinking to the following translations:");
-			System.out.println(Util.join(", ", crosslink));
-			System.out.println();
+			//System.out.println("Crosslinking to the following translations:");
+			//System.out.println(Util.join(", ", crosslink));
+			//System.out.println();
 
-			library.generateIndexes(crosslink);
-			System.out.println("Index: ");
-			library.printIndexSummary(System.out);
+			//library.generateIndexes(crosslink);
+			//System.out.println("Index: ");
+			//library.printIndexSummary(System.out);
 			System.exit(0);
 		}
 
