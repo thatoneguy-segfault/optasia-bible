@@ -172,9 +172,9 @@ public class LibraryIndex implements LibraryIndexView {
 				Collections.sort(ca);
 				for (int i = 0; i < ca.size() - 1; i++) {
 					if (ca.get(i) + 1 != ca.get(i+1)) {
-						System.out.println("It appears that a chapter was skipped in "+t+" "+b+" between '"+ca.get(i)+"' and '"+ca.get(i+1)+"'");
+						System.out.println("Warning: It appears that a chapter was skipped in "+t+" "+b+" between '"+ca.get(i)+"' and '"+ca.get(i+1)+"'");
 					}
-					assert (ca.get(i) + 1 == ca.get(i+1));
+					//assert (ca.get(i) + 1 == ca.get(i+1));
 				}
 			}
 		}

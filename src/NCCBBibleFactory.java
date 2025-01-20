@@ -98,6 +98,10 @@ class NCCBBibleFactory extends BibleFactory {
 				if (re.strMatches(s, chapterNumberPattern)) {
 					chapterNumber = Integer.valueOf(re.group(1));
 					c = b.createChapter(Integer.valueOf(chapterNumber), filename);
+                                        if (indexOnly != null) {
+                                            indexOnly.addSupport(c);
+                                            break;
+                                        }
 				}
 			} else {
 				if (re.strMatches(s, versePattern)) {
