@@ -102,7 +102,9 @@ public class JPSBibleFactory extends BibleFactory {
 				Chapter c = b.getChapter(chapterNumber);
 
 				if (null != indexOnly) {
-					indexOnly.addSupport(c);
+                                        if (!indexOnly.supports(c)) {
+                                            indexOnly.addSupport(c);
+                                        }
 				} else {
 					c.addVerse(verseNumber, cleanVerse(c, text) + "</br>");
 				}
