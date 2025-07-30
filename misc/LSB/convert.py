@@ -10,7 +10,7 @@ def to_html(input_filename: str, output_filename: str) -> None:
 """
 
     with open (input_filename, "r") as infile, open(output_filename, "w") as outfile:
-        outfile.write("<html><body>\n")
+        outfile.write("<html><head><title>Legacy Standard Bible</title></head><body>\n")
         header: bool = False
 
         re_section_start = re.compile(r"<S[HBSNF]>")
