@@ -2,9 +2,13 @@
 import re
 
 def to_html(input_filename: str, output_filename: str) -> None:
-    optasia_notice: str = "OPTASIA NOTICE"
+    optasia_notice: str = """<p>Notice: This nondramatic literary work is provided to you by Optasia Ministry, Inc., a nonprofit organization incorporated under the laws of the State of Iowa for the purpose of providing copies of previously published, nondramatic literary work in accessible formats exclusively for use by persons who are blind as allowed by section 121, chapter 1 of title 17 of the United States Code, also known as the Chafee Amendment.</p>
 
-    
+<p>Any further reproduction or distribution in a format other than a specialized format is an infringement of copyright. Beneficiaries of Optasia Ministry, Inc., services are not authorized to further distribute this material to any other entity or person.</p>
+
+<p>Under the Marakesh Treaty, persons in certain countries other than the United States may receive Optasia resources. The same conditions and limitations apply.</p>
+"""
+
     with open (input_filename, "r") as infile, open(output_filename, "w") as outfile:
         outfile.write("<html><body>\n")
         header: bool = False
@@ -43,9 +47,12 @@ def to_html(input_filename: str, output_filename: str) -> None:
                 continue
             elif header and re.fullmatch("END\\$\n", line):
                 header = False
+                outfile.write(optasia_notice)
                 continue
             elif header:
                 outfile.write("<br/>")
+                line = re.sub(r"^[-*]+", ' ', line, count=1)
+                line = re.sub(r"[-*]+\n", "\n", line, count=1)
                 outfile.write(line)
                 continue
 
@@ -61,7 +68,7 @@ def to_html(input_filename: str, output_filename: str) -> None:
             #line = line.replace("</SH>", "</h3>")
 
             line = re_section_start.sub("<h3>", line)
-            line = re_section_end.sub("<h3>", line)
+            line = re_section_end.sub("</h3>", line)
 
             line = re_section_end.sub("<h3>", line)
 
