@@ -140,11 +140,14 @@ public class Library implements ConcurrentLibraryIface {
 		HTML html = HTML.create(new Path(outputDirectory, dirExtension, "bible.html"), title);
 		html.header(title);
 		html.header("Translations", 3);
-		html.println("<ul>");
-			for (String t : index.getTranslations()) {
-				html.printLinkln(new Path(t, "index.html"), t, "<li>", "");
-			}
-		html.println("</ul>");
+                List<String> translations = index.getTranslations();
+                if (translations.size() > 0) {
+                        html.println("<ul>");
+                                for (String t : translations) {
+                                        html.printLinkln(new Path(t, "index.html"), t, "<li>", "");
+                                }
+                        html.println("</ul>");
+                }
 		html.end();
 	}
 

@@ -22,8 +22,7 @@ public class HTML {
 	public static HTML create(OutputStream stream, String title) throws IOException {
 		HTML h = new HTML();
 		h.stream = new PrintStream(stream, true, "UTF-8");
-		h.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"");
-		h.println("\"http://www.w3.org/TR/html4/strict.dtd\">");
+		h.println("<!DOCTYPE html>");
 		h.printlns("<html>", "<head>", "<title>", title, "</title>", "</head>", "<body>");
 		return h;
 	}

@@ -1,4 +1,5 @@
 import java.util.Collection;
+import java.util.List;
 import java.io.IOException;
 
 /**
@@ -65,16 +66,19 @@ public class FilePrinter extends FilePrinterVisitor {
 	protected void p_writeBibleLinks(HTML html, String shortname, Path relativePath, Path filename, BibleLinkFilter printLinkClosure) {
 		if (index != null) {
 			html.header("Optasia Bible Translations", 3);
-			html.println("<p>");
-			for (String other : index.getTranslations()) {
-				if (printLinkClosure.printLink(other)) {
-					Path link = new Path(relativePath, other, filename.toString().replaceAll(shortname, other));
-					html.printLinkln(link, other);
-				} else {
-					html.println(other);
-				}
-			}
-			html.println("</p>");
+                        List<String> translations = index.getTranslations();
+                        if (translations.size() > 0) {
+                                html.println("<p>");
+                                for (String other : translations) {
+                                        if (printLinkClosure.printLink(other)) {
+                                                Path link = new Path(relativePath, other, filename.toString().replaceAll(shortname, other));
+                                                html.printLinkln(link, other);
+                                        } else {
+                                                html.println(other);
+                                        }
+                                }
+                                html.println("</p>");
+                        }
 		}
 	}
 
@@ -129,14 +133,14 @@ public class FilePrinter extends FilePrinterVisitor {
 		toc.header("Books", 3);
 		toc.println("<ul>");
 			for (Book book : t.books.values()) {
-				toc.printLinkln(new Path(book.title, "index.html"), book.title, "<li>", "");
+				toc.printLinkln(new Path(book.title, "index.html"), book.title, "<li>", "</li>");
 			}
 		toc.println("</ul>");
 
 		toc.header("Search Categories", 3);
 		toc.println("<ul>");
 			for (BookCategory category : BookCategory.values()) {
-				toc.printLinkln(new Path(category.toString() + ".html"), category.toString(), "<li>", "");
+				toc.printLinkln(new Path(category.toString() + ".html"), category.toString(), "<li>", "</li>");
 			}
 		toc.println("</ul>");
 		toc.header("Navigation Links", 3);

@@ -18,7 +18,9 @@ The Bible input text is stored as a git submodule with private github protection
 
 ## Dependancies
 
-java, ant, unix-like environment (make, sed, zip, xargs, sh)
+`java`, `ant`, unix-like environment (make, sed, zip, xargs, sh)
+
+`tidy` if you want to clean up the html after the conversion.  Tidy is available on linux with `apt`.
 
 ## Usage
 
