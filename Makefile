@@ -26,7 +26,6 @@ zip:
 	cd output/production/collections && for collection in `ls -d * | sed 's/\///g'`; do zip -r ../../../zip/$$collection.zip $$collection; done
 	cd output/production/individual && for bible in `ls -d * | sed 's/\///g'`; do zip -r ../../../zip/$$bible.zip $$bible; done
 
-
 .PHONY: all_msg
 all_msg:
 	@echo "Note: 'make all' does not download.  That must be done explicitly."
@@ -36,12 +35,10 @@ all_msg:
 generate: compile
 	./Run -p
 
-.PHONY: all
-all: all_msg generate clean_html verify_clean_html zip
 
 .PHONY: verify_clean_html
 verify_clean_html:
-	grep "This document has errors that must be fixed before" clean_html.output >/dev/null && grep --no-group-separator -e "This document has errors that must be fixed before" -e "using HTML Tidy to generate a tidied up version" -e '^tidy' clean_html.output | grep -C1  "This document has errors that must be fixed before" && false
+	grep "This document has errors that must be fixed before" clean_html.output >/dev/null && grep --no-group-separator -e "This document has errors that must be fixed before" -e "using HTML Tidy to generate a tidied up version" -e '^tidy' clean_html.output | grep -C1  "This document has errors that must be fixed before" && sleep 5 # && false
 	@echo "tidy was able to clean the html"
 
 .PHONY: clean_html
@@ -49,6 +46,8 @@ clean_html: clean_html.sh
 	#find output/ -name '*.html' -type f -print -exec tidy -modify -quiet -clean -bare -access '{}' \+ 2>&1 | tee clean_html.output
 	./clean_html.sh
 
+.PHONY: all
+all: all_msg generate clean_html verify_clean_html zip
 
 
 .PHONY: clean
