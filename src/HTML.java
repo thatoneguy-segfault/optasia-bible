@@ -3,9 +3,14 @@ import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class HTML {
 	private PrintStream stream = null;
+        private Pattern openHeader = Pattern.compile("<h(\\d)>");
+        private Pattern closeHeader = Pattern.compile("</h(\\d)>");
 
 	private HTML() {}
 
@@ -27,6 +32,31 @@ public class HTML {
 		return h;
 	}
 
+        public String finalCleanup(String s) {
+            // Add close paragraph marking before all "open header" <h5>
+            Matcher openHeaderMatcher = openHeader.matcher(s);
+            StringBuilder sb = new StringBuilder();
+            while (openHeaderMatcher.find()) {
+                openHeaderMatcher.appendReplacement(sb, "</p><h" + openHeaderMatcher.group(1) + ">");
+            }
+            // append the remaining part of the input string after the last match
+            openHeaderMatcher.appendTail(sb);
+            s = sb.toString();
+
+            // Add an open paragraph marking after all "close header" </h5>
+            Matcher closeHeaderMatcher = closeHeader.matcher(s);
+            sb.setLength(0); // reset string buffer
+            while (closeHeaderMatcher.find()) {
+                closeHeaderMatcher.appendReplacement(sb, "</h" + closeHeaderMatcher.group(1) + "><p>");
+            }
+            // append the remaining part of the input string after the last match
+            closeHeaderMatcher.appendTail(sb);
+
+
+
+            return sb.toString();
+        }
+
 	public static String safe(String s) {
 		s = s.replaceAll(" ", "_");
 		s = s.replaceAll("'", "_");
@@ -44,8 +74,12 @@ public class HTML {
 		this.println("</h"+Integer.toString(i)+">");
 	}
 
-	public void print(Object o) { stream.print(o); }
-	public void println(Object o) { stream.println(o); }
+	public void print(Object o) { this.print(o.toString()); }
+	public void println(Object o) { this.println(o.toString()); }
+
+        public void print(String s) { stream.print(this.finalCleanup(s)); }
+
+        public void println(String s) { stream.println(this.finalCleanup(s)); }
 
 	public void print(Object... objects) {
 		for (Object o : objects) {
