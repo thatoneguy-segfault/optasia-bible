@@ -52,8 +52,6 @@ public class HTML {
             // append the remaining part of the input string after the last match
             closeHeaderMatcher.appendTail(sb);
 
-
-
             return sb.toString();
         }
 
@@ -74,12 +72,29 @@ public class HTML {
 		this.println("</h"+Integer.toString(i)+">");
 	}
 
-	public void print(Object o) { this.print(o.toString()); }
-	public void println(Object o) { this.println(o.toString()); }
+	public void print(Object o) {
+            if (null != o) {
+                this.print(o.toString());
+            }
+        }
 
-        public void print(String s) { stream.print(this.finalCleanup(s)); }
+	public void println(Object o) {
+            if (null != o) {
+                this.println(o.toString());
+            }
+        }
 
-        public void println(String s) { stream.println(this.finalCleanup(s)); }
+        public void print(String s) {
+            if (null != s) {
+                stream.print(this.finalCleanup(s));
+            }
+        }
+
+        public void println(String s) {
+            if (null != s) {
+                stream.println(this.finalCleanup(s));
+            }
+        }
 
 	public void print(Object... objects) {
 		for (Object o : objects) {
