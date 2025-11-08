@@ -33,6 +33,9 @@ public class HTML {
 	}
 
         public String finalCleanup(String s) {
+            // Remove empty paragraph markings before 
+            s = s.replaceAll("<p */>", "");
+
             // Add close paragraph marking before all "open header" <h5>
             Matcher openHeaderMatcher = openHeader.matcher(s);
             StringBuilder sb = new StringBuilder();
