@@ -135,6 +135,7 @@ class GreekBibleFactory extends BibleFactory {
 							}
 
 							firstTimeBookChapter.add(bookChapter);
+                                                        c.addHtml("<p>");
 						}
 						c.addVerse(verseNumber, convertBraille(cleanVerse(c, text), shortname) + "</br>");
 					}

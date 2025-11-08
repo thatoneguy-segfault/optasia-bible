@@ -1,5 +1,6 @@
 #!/bin/bash
 # The purpose of this script is to return non-zero on the first failure of tidy.
+# But, it doesn't seem to do that correctly, so...
 
 shopt -s globstar
 set -e # exit on first failed command
